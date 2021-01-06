@@ -30,17 +30,44 @@ def create_app(test_config=None):
   @TODO: Use the after_request decorator to set Access-Control-Allow
   '''
   @app.after_request
-    def after_request(response):
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
-        response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE')
-        return response
+  def after_request(response):
+      response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
+      response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE')
+      return response
 
   '''
   @TODO: 
   Create an endpoint to handle GET requests 
   for all available categories.
   '''
+  def get_formated_categories():
+    all_categories = Category.query.order_by(Category.id).all()
+    categories = [category.format() for category in all_categories]
+    return categories
 
+  def get_categories_names():
+    all_categories = Category.query.order_by(Category.id).all()
+    categories = [category.type for category in all_categories]
+    return categories
+
+  def get_categories_id_types():
+    all_categories = Category.query.order_by(Category.id).all()
+    categories = [category.format_with_id() for category in all_categories]
+    return categories
+
+  def get_category_number_from_name(category_name):
+    all_categories = Category.query.order_by(Category.id).all()
+    categories_types_dic = [category.format_with_type() for category in all_categories]
+    return categories_types_dic[category_name]
+
+  @app.route('/categories', methods=['GET'])
+  def get_categories():
+    categories = get_categories_names()
+    #print(categories)
+    return jsonify({
+      'success': True,
+      'categories': categories
+    })
 
   '''
   @TODO: 
@@ -54,6 +81,18 @@ def create_app(test_config=None):
   ten questions per page and pagination at the bottom of the screen for three pages.
   Clicking on the page numbers should update the questions. 
   '''
+
+  @app.route('/questions', methods=['GET'])
+  def get_questions():
+    all_questions = Question.query.order_by(Question.id).all()
+    paginated_questions = paginate_questions(request, all_questions)
+    return jsonify({
+      'success': True,
+      'questions': paginated_questions,
+      'total_questions': len(all_questions),
+      'categories': get_categories_names(),
+      'current_category': 1
+    })
 
   '''
   @TODO: 
@@ -73,6 +112,25 @@ def create_app(test_config=None):
   the form will clear and the question will appear at the end of the last page
   of the questions list in the "List" tab.  
   '''
+
+  @app.route('/questions', methods=['POST'])
+  def add_question():
+    try:
+      json_request = request.get_json()
+      question = json_request.get('question')
+      answer = json_request.get('answer')
+      category = json_request.get('category')
+      difficulty = json_request.get('difficulty')
+      print(category)
+      newQuestion = Question(question=question, answer=answer, category=category, difficulty=difficulty)
+      newQuestion.insert()
+      question_id = newQuestion.id
+      return jsonify({
+        'success': True,
+        'question_id': question_id
+      })
+    except:
+      abort(422)
 
   '''
   @TODO: 
