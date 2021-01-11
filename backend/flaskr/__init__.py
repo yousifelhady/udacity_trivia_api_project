@@ -32,45 +32,33 @@ def create_app(test_config=None):
   @app.after_request
   def after_request(response):
       response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
-      response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE')
+      response.headers.add('Access-Control-Allow-Methods', 'GET,POST,DELETE')
       return response
 
   '''
-  @TODO: 
+  @TODO: DONE
   Create an endpoint to handle GET requests 
   for all available categories.
   '''
-  def get_formated_categories():
-    all_categories = Category.query.order_by(Category.id).all()
-    categories = [category.format() for category in all_categories]
-    return categories
 
-  def get_categories_names():
+  def construct_categories_dic():
     all_categories = Category.query.order_by(Category.id).all()
-    categories = [category.type for category in all_categories]
-    return categories
-
-  def get_categories_id_types():
-    all_categories = Category.query.order_by(Category.id).all()
-    categories = [category.format_with_id() for category in all_categories]
-    return categories
-
-  def get_category_number_from_name(category_name):
-    all_categories = Category.query.order_by(Category.id).all()
-    categories_types_dic = [category.format_with_type() for category in all_categories]
-    return categories_types_dic[category_name]
-
+    categories_dic = {}
+    for category in all_categories:
+      categories_dic[category.id]= category.type
+    return categories_dic
+  
   @app.route('/categories', methods=['GET'])
   def get_categories():
-    categories = get_categories_names()
-    #print(categories)
+    categories_dic=construct_categories_dic()
+    print(categories_dic)
     return jsonify({
       'success': True,
-      'categories': categories
+      'categories': categories_dic
     })
 
   '''
-  @TODO: 
+  @TODO: DONE
   Create an endpoint to handle GET requests for questions, 
   including pagination (every 10 questions). 
   This endpoint should return a list of questions, 
@@ -90,20 +78,31 @@ def create_app(test_config=None):
       'success': True,
       'questions': paginated_questions,
       'total_questions': len(all_questions),
-      'categories': get_categories_names(),
-      'current_category': 1
+      'categories': construct_categories_dic()
     })
 
   '''
-  @TODO: 
+  @TODO: DONE
   Create an endpoint to DELETE question using a question ID. 
 
   TEST: When you click the trash icon next to a question, the question will be removed.
   This removal will persist in the database and when you refresh the page. 
   '''
 
+  @app.route('/questions/<int:question_id>', methods=['DELETE'])
+  def delete_question(question_id):
+    try:
+      question=Question.query.get(question_id)
+      question.delete()
+      return jsonify({
+        'success': True,
+        'question_id': question_id
+      })
+    except:
+      abort(422)
+
   '''
-  @TODO: 
+  @TODO: DONE
   Create an endpoint to POST a new question, 
   which will require the question and answer text, 
   category, and difficulty score.
@@ -121,7 +120,6 @@ def create_app(test_config=None):
       answer = json_request.get('answer')
       category = json_request.get('category')
       difficulty = json_request.get('difficulty')
-      print(category)
       newQuestion = Question(question=question, answer=answer, category=category, difficulty=difficulty)
       newQuestion.insert()
       question_id = newQuestion.id
@@ -144,7 +142,7 @@ def create_app(test_config=None):
   '''
 
   '''
-  @TODO: 
+  @TODO: DONE
   Create a GET endpoint to get questions based on category. 
 
   TEST: In the "List" tab / main screen, clicking on one of the 
@@ -152,6 +150,20 @@ def create_app(test_config=None):
   category to be shown. 
   '''
 
+  @app.route('/categories/<int:category_id>/questions', methods=['GET'])
+  def get_questions_based_on_category(category_id):
+    current_category=Category.query.get(category_id)
+    print(current_category.format())
+    if current_category is None:
+      abort(404)
+    questions = Question.query.filter_by(category=category_id).all()
+    paginated_questions = paginate_questions(request, questions)
+    return jsonify({
+      'success': True,
+      'questions': paginated_questions,
+      'total_questions': len(questions),
+      'current_category': category_id
+    })
 
   '''
   @TODO: 
