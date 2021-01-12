@@ -197,6 +197,44 @@ def create_app(test_config=None):
   and shown whether they were correct or not. 
   '''
 
+  @app.route('/quizzes', methods=['POST'])
+  def play_quiz():
+    try:
+      json_request = request.get_json()
+      prev_questions = json_request.get('previous_questions')
+      print(prev_questions)
+
+      quiz_category = json_request.get('quiz_category')
+      category = quiz_category['id']
+      if category == 0:
+        questions= Question.query.all()
+      else:
+        questions = Question.query.filter_by(category=category).all()
+
+      question = random.choice(questions)
+      last_question = False
+      while question.id in prev_questions:
+        if len(prev_questions) == len(questions):
+          last_question = True
+          break
+        question = random.choice(questions)
+      print(question.format())
+
+      if last_question:
+        return jsonify({
+          'success': True,
+          'question': None
+        })
+      else:
+        return jsonify({
+          'success': True,
+          'quizCategory': category,
+          'previousQuestions': prev_questions,
+          'question': question.format()
+        })
+    except:
+      abort(422)
+
   '''
   @TODO: 
   Create error handlers for all expected errors 
@@ -218,6 +256,14 @@ def create_app(test_config=None):
       'error': 422,
       'message': "Unprocessable"
     }), 422
+
+  @app.errorhandler(405)
+  def method_not_allowed(error):
+    return jsonify({
+        'success': False,
+        'error': 405,
+        'message': "Method Not Allowed"
+    }), 405
   
   return app
 
