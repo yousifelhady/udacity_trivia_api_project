@@ -141,6 +141,21 @@ def create_app(test_config=None):
   Try using the word "title" to start. 
   '''
 
+  @app.route('/questions/search', methods=['GET'])
+  def search_question():
+    search_term=request.args.get('searchTerm')
+    print(search_term)
+    if search_term is not None:
+      matched_questions = Question.query.order_by(Question.id).filter(Question.question.ilike('%{}%'.format(search_term)))
+      questions = [question.format() for question in matched_questions]
+      return jsonify({
+          'success': True,
+          'questions': questions,
+          'total_questions': len(questions)
+      })
+    else:
+      abort(404)
+
   '''
   @TODO: DONE
   Create a GET endpoint to get questions based on category. 
