@@ -51,11 +51,13 @@ def create_app(test_config=None):
   @app.route('/categories', methods=['GET'])
   def get_categories():
     categories_dic=construct_categories_dic()
-    print(categories_dic)
-    return jsonify({
-      'success': True,
-      'categories': categories_dic
-    })
+    if len(categories_dic) == 0:
+      abort(404)
+    else:
+      return jsonify({
+        'success': True,
+        'categories': categories_dic
+      })
 
   '''
   @TODO: DONE
@@ -74,12 +76,15 @@ def create_app(test_config=None):
   def get_questions():
     all_questions = Question.query.order_by(Question.id).all()
     paginated_questions = paginate_questions(request, all_questions)
-    return jsonify({
-      'success': True,
-      'questions': paginated_questions,
-      'total_questions': len(all_questions),
-      'categories': construct_categories_dic()
-    })
+    if len(paginated_questions) == 0:
+      abort(404)
+    else:
+      return jsonify({
+        'success': True,
+        'questions': paginated_questions,
+        'total_questions': len(all_questions),
+        'categories': construct_categories_dic()
+      })
 
   '''
   @TODO: DONE
@@ -144,9 +149,10 @@ def create_app(test_config=None):
   @app.route('/questions/search', methods=['GET'])
   def search_question():
     search_term=request.args.get('searchTerm')
-    print(search_term)
     if search_term is not None:
       matched_questions = Question.query.order_by(Question.id).filter(Question.question.ilike('%{}%'.format(search_term)))
+      #format all questions and return them without pagination, 
+      #so that all search result will be displayed in one page
       questions = [question.format() for question in matched_questions]
       return jsonify({
           'success': True,
@@ -168,7 +174,6 @@ def create_app(test_config=None):
   @app.route('/categories/<int:category_id>/questions', methods=['GET'])
   def get_questions_based_on_category(category_id):
     current_category=Category.query.get(category_id)
-    print(current_category.format())
     if current_category is None:
       abort(404)
     questions = Question.query.filter_by(category=category_id).all()
@@ -197,6 +202,22 @@ def create_app(test_config=None):
   Create error handlers for all expected errors 
   including 404 and 422. 
   '''
+
+  @app.errorhandler(404)
+  def not_found(error):
+    return jsonify({
+      'success': False,
+      'error': 404,
+      'message': "Not Found"
+    }), 404
+
+  @app.errorhandler(422)
+  def unprocessable(error):
+    return jsonify({
+      'success': False,
+      'error': 422,
+      'message': "Unprocessable"
+    }), 422
   
   return app
 
