@@ -1,6 +1,7 @@
 import os
 import unittest
 import json
+import random
 from flask_sqlalchemy import SQLAlchemy
 
 from flaskr import create_app
@@ -58,14 +59,17 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(res_data['total_questions'])
         self.assertTrue(res_data['categories'])
 
-    #def test_delete_questions(self):
-    #    question_id = 10
-    #    res = self.client().delete('/questions/{}'.format(question_id))
-    #    res_data = json.loads(res.data)
+    def test_delete_questions(self):
+        all_questions = Question.query.all()
+        all_questions_ids = [question.id for question in all_questions]
+        question_id = random.choice(all_questions_ids)
 
-    #    self.assertEqual(res.status_code, 200)
-    #    self.assertEqual(res_data['success'], True)
-    #    self.assertEqual(res_data['question_id'], question_id)
+        res = self.client().delete('/questions/{}'.format(question_id))
+        res_data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res_data['success'], True)
+        self.assertEqual(res_data['question_id'], question_id)
 
     def test_add_question(self):
         res = self.client().post('/questions', json=self.new_question)
@@ -95,6 +99,28 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(res_data['success'], True)
         self.assertEqual(res_data['questions'], [])
         self.assertEqual(res_data['total_questions'], 0)
+
+    def test_get_questions_per_category(self):
+        category_id = 1
+        res = self.client().get('/categories/{}/questions'.format(category_id))
+        res_data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res_data['success'], True)
+        self.assertTrue(res_data['questions'])
+        self.assertTrue(res_data['total_questions'])
+        self.assertEqual(res_data['current_category'], category_id)
+
+    def test_play_quiz(self):
+        res = self.client().post('/quizzes', 
+        json={'previous_questions': [], 
+        'quiz_category': {'id': 1, 'type': 'Science'}})
+        res_data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res_data['success'], True)
+        self.assertTrue(res_data['question'])
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
