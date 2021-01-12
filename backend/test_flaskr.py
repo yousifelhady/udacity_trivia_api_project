@@ -121,6 +121,32 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(res_data['success'], True)
         self.assertTrue(res_data['question'])
 
+    def test_404_not_found(self):
+        category_id = 9999  #non existing category id
+        res = self.client().get('/categories/{}/questions'.format(category_id))
+        res_data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(res_data['success'], False)
+        self.assertEqual(res_data['message'], 'Not Found')
+
+    def test_422_unprocessable(self):
+        question_id = 9999  #non existing question id
+        res = self.client().delete('/questions/{}'.format(question_id))
+        res_data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(res_data['success'], False)
+        self.assertEqual(res_data['message'], 'Unprocessable')
+
+    def test_405_method_not_allowed(self):
+        res = self.client().get('/quizzes') #GET method is not allowed for this end point
+        res_data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 405)
+        self.assertEqual(res_data['success'], False)
+        self.assertEqual(res_data['message'], 'Method Not Allowed')
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
