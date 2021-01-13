@@ -28,13 +28,15 @@ This project enables you to do the following:
   set FLASK_ENV=development
   flask run
 ```
-=> the application runs on 'http://127.0.0.1:5000/' by default
+the application runs on 'http://127.0.0.1:5000/' by default
+
 5. In order to run the website and visualize it, navigate to '/frontend' and type these commands at your CMD:
 ```bash
   npm install
   npm start
 ```
-=> the website frontend runs on 'http://localhost:3000/' and it opens immediately as 'React App' at your browser 
+the website frontend runs on 'http://localhost:3000/' and it opens immediately as 'React App' at your browser
+
 6. Make sure to connect to the postgres database by configuring it in '/backend/models.py'
 
 ## Tests
