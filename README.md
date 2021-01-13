@@ -19,7 +19,9 @@ This project enables you to do the following:
 1. Python3 should be installed at your machine
 2. Clone the project's repo
 3. Navigate to '/backend' and install all project's dependencies by running this command at your CMD:
+```bash
   - pip install -r requirements.txt
+```
 4. In order to run the application, type these commands at your CMD:
   - set FLASK_APP=flaskr
   - set FLASK_ENV=development
