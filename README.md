@@ -5,7 +5,7 @@ This project enables you to do the following:
 2. Display all questions in the Home page or List page
 3. Get questions per category if you clicked on any category at Home page
 4. Search for specific word in any question, all matched questions shall be displayed in search result regardlress of their category
-5. Delete a question using the 'bin' button
+5. Delete a question using the 'bin' button under each displayed question
 6. Show question answer by clicking on 'Show Answer'
 7. Play the trivia game which is
   7.1. Choose one category to get questions from, or Choose 'All' to get questions from any category
