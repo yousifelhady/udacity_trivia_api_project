@@ -37,9 +37,9 @@ This project enables you to do the following:
   flask run
 ```
   Where:
-      - Setting the `FLASK_ENV` variable to `development` will detect file changes and restart the server automatically.
-      - Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` directory and the `__init__.py` file to find the application.
-      - Application runs on 'http://127.0.0.1:5000/' by default
+  - Setting the `FLASK_ENV` variable to `development` will detect file changes and restart the server automatically.
+  - Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` directory and the `__init__.py` file to find the application.
+  - Application runs on 'http://127.0.0.1:5000/' by default
 
 5. In order to run the website and visualize it, navigate to `'/frontend'` and type these commands at your CMD:
 ```bash
