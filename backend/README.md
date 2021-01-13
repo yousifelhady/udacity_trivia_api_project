@@ -33,11 +33,13 @@ GET '/categories/<int:category_id>/questions'
 POST '/questions'
 POST '/quizzes'
 DELETE '/questions/<int:question_id>'
+```
 
 1. GET '/categories'
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: JSON Object
+```
     {
       "categories": {
         "1": "Science", 
@@ -49,5 +51,4 @@ DELETE '/questions/<int:question_id>'
       }, 
       "success": true
     }
-
 ```
