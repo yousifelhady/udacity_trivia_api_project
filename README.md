@@ -50,6 +50,7 @@ This project enables you to do the following:
 
 6. Make sure to connect to the postgres database by configuring it in `'/backend/models.py'`
 
+
 ## Tests
 
 In order to run tests, navigate to `'/backend'` and run the following commands at the CMD:
@@ -64,14 +65,17 @@ Note: If this is your first time to run tests, you don't have to execute the 'dr
 
 All tests are implemented in test_flask.py and should be maintained and updated if any changes occured in the backend endpoints handlers to make sure that the application is behaving correctly
 
+
 ## API Reference
 
 Please check the 'README' file included in `'/backend'` folder for reference
 
-### Authors
+
+## Authors
 
 Sofware Engineer: Yousif Elhady
 
-### Acknowledgements
+
+## Acknowledgements
 
 Thanks to all my mentors and colleagues at Udacity Web development nano-degree program
