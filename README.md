@@ -20,26 +20,32 @@ This project enables you to do the following:
 2. Clone the project's repo
 3. Navigate to '/backend' and install all project's dependencies by running this command at your CMD:
 ```bash
-  - pip install -r requirements.txt
+  pip install -r requirements.txt
 ```
 4. In order to run the application, type these commands at your CMD:
-  - set FLASK_APP=flaskr
-  - set FLASK_ENV=development
-  - flask run
-  => the application runs on 'http://127.0.0.1:5000/' by default
+```bash
+  set FLASK_APP=flaskr
+  set FLASK_ENV=development
+  flask run
+```
+=> the application runs on 'http://127.0.0.1:5000/' by default
 5. In order to run the website and visualize it, navigate to '/frontend' and type these commands at your CMD:
-  - npm install
-  - npm start
-  => the website frontend runs on 'http://localhost:3000/' and it opens immediately as 'React App' at your browser 
+```bash
+  npm install
+  npm start
+```
+=> the website frontend runs on 'http://localhost:3000/' and it opens immediately as 'React App' at your browser 
 6. Make sure to connect to the postgres database by configuring it in '/backend/models.py'
 
 ## Tests
 
 In order to run tests, navigate to '/backend' and run the following commands at the CMD:
-  - dropdb trivia_test
-  - createdb trivia_test
-  - psql trivia_test < trivia.psql
-  - python test_flaskr.py
+```bash
+  dropdb trivia_test
+  createdb trivia_test
+  psql trivia_test < trivia.psql
+  python test_flaskr.py
+```
   
 Note: If this is your first time to run tests, you don't have to execute the 'dropdb' command
 
