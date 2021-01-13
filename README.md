@@ -16,12 +16,20 @@ This project enables you to do the following:
 
 ## Pre-requisites to run the project
 
-1. Python3 should be installed at your machine
+1. Python 3.7 should be installed at your machine
 2. Clone the project's repo
-3. Navigate to '/backend' and install all project's dependencies by running this command at your CMD:
+3. Navigate to `'/backend'` and install all project's dependencies by running this command at your CMD:
 ```bash
   pip install -r requirements.txt
 ```
+##### Key Dependencies
+
+- [Flask](http://flask.pocoo.org/) is a lightweight backend microservices framework. Flask is required to handle requests and responses.
+
+- [SQLAlchemy](https://www.sqlalchemy.org/) is the Python SQL toolkit and ORM we'll use handle the lightweight postgres database.
+
+- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server.
+
 4. In order to run the application, type these commands at your CMD:
 ```bash
   set FLASK_APP=flaskr
@@ -30,18 +38,18 @@ This project enables you to do the following:
 ```
   the application runs on 'http://127.0.0.1:5000/' by default
 
-5. In order to run the website and visualize it, navigate to '/frontend' and type these commands at your CMD:
+5. In order to run the website and visualize it, navigate to `'/frontend'` and type these commands at your CMD:
 ```bash
   npm install
   npm start
 ```
   the website frontend runs on 'http://localhost:3000/' and it opens immediately as 'React App' at your browser
 
-6. Make sure to connect to the postgres database by configuring it in '/backend/models.py'
+6. Make sure to connect to the postgres database by configuring it in `'/backend/models.py'`
 
 ## Tests
 
-In order to run tests, navigate to '/backend' and run the following commands at the CMD:
+In order to run tests, navigate to `'/backend'` and run the following commands at the CMD:
 ```bash
   dropdb trivia_test
   createdb trivia_test
@@ -55,7 +63,7 @@ All tests are implemented in test_flask.py and should be maintained and updated 
 
 ## API Reference
 
-Please check the 'README' file included in '/backend' folder for reference
+Please check the 'README' file included in `'/backend'` folder for reference
 
 ### Authors
 
