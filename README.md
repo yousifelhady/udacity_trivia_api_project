@@ -1,44 +1,56 @@
-# Full Stack API Final Project
+# Udacitrivia
 
-## Full Stack Trivia
+This project enables you to do the following:
+1. Add a question with specific category and difficulty
+2. Display all questions in the Home page or List page
+3. Get questions per category if you clicked on any category at Home page
+4. Search for specific word in any question, all matched questions shall be displayed in search result regardlress of their category
+5. Delete a question using the 'bin' button
+6. Show question answer by clicking on 'Show Answer'
+7. Play the trivia game which is
+  7.1. Choose one category to get questions from, or Choose 'All' to get questions from any category
+  7.2. A question shall be displayed and you have to guess the answer
+  7.3. Submit the answers
+  7.4. The quiz composed of 5 questions and after you submitted all the answers, a final score appears for you
+  7.5. After finishing the quiz 5 questions and got the score, you can play again!
 
-Udacity is invested in creating bonding experiences for its employees and students. A bunch of team members got the idea to hold trivia on a regular basis and created a  webpage to manage the trivia app and play the game, but their API experience is limited and still needs to be built out. 
+## Pre-requisites to run the project
 
-That's where you come in! Help them finish the trivia app so they can start holding trivia and seeing who's the most knowledgeable of the bunch. The application must:
+1. Python3 should be installed at your machine
+2. Clone the project's repo
+3. Navigate to '/backend' and install all project's dependencies by running this command at your CMD
+  pip install -r requirements.txt
+4. In order to run the application, type these commands at your CMD
+  set FLASK_APP=flaskr
+  set FLASK_ENV=development
+  flask run
+  => the application runs on 'http://127.0.0.1:5000/' by default
+5. In order to run the website and visualize it, navigate to '/frontend' and type these commands at your CMD
+  npm install
+  npm start
+  => the website frontend runs on 'http://localhost:3000/' and it opens immediately as 'React App' at your browser 
+6. Make sure to connect to the postgres database by configuring it in '/backend/models.py'
 
-1) Display questions - both all questions and by category. Questions should show the question, category and difficulty rating by default and can show/hide the answer. 
-2) Delete questions.
-3) Add questions and require that they include question and answer text.
-4) Search for questions based on a text query string.
-5) Play the quiz game, randomizing either all questions or within a specific category. 
+## Tests
 
-Completing this trivia app will give you the ability to structure plan, implement, and test an API - skills essential for enabling your future applications to communicate with others. 
+In order to run tests, navigate to '/backend' and run the following commands at the CMD
+  dropdb trivia_test
+  createdb trivia_test
+  psql trivia_test < trivia.psql
+  python test_flaskr.py
+  
+Note: If this is your first time to run tests, you don't have to execute the 'dropdb' command
 
-## Tasks
+All tests are implemented in test_flask.py and should be maintained and updated if any changes occured in the backend endpoints handlers to make sure that the application is behaving correctly
 
-There are `TODO` comments throughout project. Start by reading the READMEs in:
+## API Reference
 
-1. [`./frontend/`](./frontend/README.md)
-2. [`./backend/`](./backend/README.md)
+Please check the 'README' file included in '/backend' folder for reference
 
-We recommend following the instructions in those files in order. This order will look familiar from our prior work in the course.
+### Authors
 
-## Starting and Submitting the Project
+Sofware Engineer: Yousif Elhady
 
-[Fork](https://help.github.com/en/articles/fork-a-repo) the [project repository]() and [Clone](https://help.github.com/en/articles/cloning-a-repository) your forked repository to your machine. Work on the project locally and make sure to push all your changes to the remote repository before submitting the link to your repository in the Classroom. 
+### Acknowledgements
 
-## About the Stack
-
-We started the full stack application for you. It is desiged with some key functional areas:
-
-### Backend
-
-The `./backend` directory contains a partially completed Flask and SQLAlchemy server. You will work primarily in app.py to define your endpoints and can reference models.py for DB and SQLAlchemy setup. 
-
-### Frontend
-
-The `./frontend` directory contains a complete React frontend to consume the data from the Flask server. You will need to update the endpoints after you define them in the backend. Those areas are marked with TODO and can be searched for expediency. 
-
-Pay special attention to what data the frontend is expecting from each API response to help guide how you format your API. 
-
-[View the README.md within ./frontend for more details.](./frontend/README.md)
+Thanks to all my mentors and colleagues at Udacity Web development nano-degree program
