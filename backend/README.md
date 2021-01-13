@@ -35,7 +35,7 @@ POST '/quizzes'
 DELETE '/questions/<int:question_id>'
 ```
 
-1. GET '/categories'
+####GET '/categories'
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: JSON Object
