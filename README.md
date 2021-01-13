@@ -8,11 +8,11 @@ This project enables you to do the following:
 5. Delete a question using the 'bin' button under each displayed question
 6. Show question answer by clicking on 'Show Answer'
 7. Play the trivia game which is:
-  7.1. Choose one category to get questions from, or Choose 'All' to get questions from any category
-  7.2. A question shall be displayed and you have to guess the answer
-  7.3. Submit the answers
-  7.4. The quiz composed of 5 questions and after you submitted all the answers, a final score appears for you
-  7.5. After finishing the quiz 5 questions and got the score, you can play again!
+  - Choose one category to get questions from, or Choose 'All' to get questions from any category
+  - A question shall be displayed and you have to guess the answer
+  - Submit the answers
+  - The quiz composed of 5 questions and after you submitted all the answers, a final score appears for you
+  - After finishing the quiz 5 questions and got the score, you can play again!
 
 ## Pre-requisites to run the project
 
