@@ -35,7 +35,7 @@ POST '/quizzes'
 DELETE '/questions/<int:question_id>'
 ```
 
-####GET '/categories'
+#### GET '/categories'
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: JSON Object
@@ -51,4 +51,40 @@ DELETE '/questions/<int:question_id>'
       }, 
       "success": true
     }
+```
+
+#### GET '/questions'
+- Fetches all questions existing in the database table "questions", total number of questions and existing categories
+- Resulted list of questions are paginated in groups of 10
+- Request Arguments: None
+- Returns: JSON Object
+```
+    {
+      "categories": {
+        "1": "Science", 
+        "2": "Art", 
+        "3": "Geography", 
+        "4": "History", 
+        "5": "Entertainment", 
+        "6": "Sports"
+      }, 
+      "questions": [
+        {
+          "answer": "Apollo 13", 
+          "category": 5, 
+          "difficulty": 4, 
+          "id": 2, 
+          "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+        }, 
+        {
+          "answer": "Tom Cruise", 
+          "category": 5, 
+          "difficulty": 4, 
+          "id": 4, 
+          "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+        }
+       ], 
+      "success": true, 
+      "total_questions": 23
+  }
 ```
